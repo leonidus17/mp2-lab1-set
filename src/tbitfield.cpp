@@ -101,7 +101,7 @@ int TBitField::GetBit(const int n) const // получить значение б
     }
     else
     {
-        return pMem[GetMemIndex(n) & GetMemMask(n)];
+        return (pMem[GetMemIndex(n)] & GetMemMask(n)) !=0;
     }
 }
 
