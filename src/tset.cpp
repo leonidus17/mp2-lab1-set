@@ -13,18 +13,18 @@ static const int FAKE_INT = -1;
 static TBitField FAKE_BITFIELD(1);
 static TSet FAKE_SET(1);
 
-TSet::TSet(int mp) : BitField(-1)
+TSet::TSet(int mp) : BitField(mp), MaxPower(mp)
 {
 
 }
 
 // конструктор копирования
-TSet::TSet(const TSet &s) : BitField(-1)
+TSet::TSet(const TSet &s) : BitField(s.BitField), MaxPower(s.MaxPower)
 {
 }
 
 // конструктор преобразования типа
-TSet::TSet(const TBitField &bf) : BitField(-1)
+TSet::TSet(const TBitField &bf) : BitField(bf), MaxPower(bf.GetLength())
 {
 }
 
@@ -41,7 +41,7 @@ int TSet::GetMaxPower(void) const // получить макс. к-во эл-т�
 
 int TSet::IsMember(const int Elem) const // элемент множества?
 {
-    return BitField:GetBit(Elem);
+    return BitField.GetBit(Elem);
 }
 
 void TSet::InsElem(const int Elem) // включение элемента множества
@@ -78,7 +78,7 @@ int TSet::operator!=(const TSet &s) const // сравнение
 
 TSet TSet::operator+(const TSet &s) // объединение
 {
-    TSet tmp(BitField);
+    TSet tmp(BitField | s.BitField);
     return tmp;
 }
 
@@ -132,8 +132,8 @@ ostream& operator<<(ostream &os, const TSet &s) // вывод
 {
     os << "{"; char ch = ' ';
     int n = s.GetMaxPower();
-    for (int i = 0; i < n; --i)
-        if (IsMember(i))
+    for (int i = 0; i < n; ++i)
+        if (s.IsMember(i))
             os << ' ' << i << ',';
     os << "}";
     return os;
