@@ -1,4 +1,4 @@
-﻿// ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
+// ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
 //
 // sample_prime_numbers.cpp - Copyright (c) Гергель В.П. 20.08.2000
 //   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (19.04.2015)
@@ -14,7 +14,7 @@
 
 #include "tbitfield.h"
 
-int main()
+/*int main()
 {
   int n, m, k, count;
 
@@ -51,7 +51,7 @@ int main()
   cout << "В первых " << n << " числах " << count << " простых" << endl;
 }
 #else
-
+*/
 #include "tset.h"
 
 int main()
@@ -89,6 +89,16 @@ int main()
     }
   cout << endl;
   cout << "В первых " << n << " числах " << count << " простых" << endl;
+  s = ~s;
+  for (int i = 0; i < s.GetMaxPower();i++)
+  {
+      if (s.IsMember(i) && i % 2 != 0)
+      {
+          s.DelElem(i);
+      }
+  }
+  cout << "Составные чётные числа";
+  cout << s;
 }
 
 #endif
